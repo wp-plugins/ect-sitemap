@@ -1,0 +1,26 @@
+.ect_sm, .ect_sm_sub
+{
+	/*list-style:none;*/
+}
+.ect_sm li, .ect_sm_sub li
+{
+	line-height:20px;
+} 
+.admin_inner li
+{
+	float: left;
+	width: 209px;
+}
+.admin_inner li:last-child 
+{
+  float: none;
+}
+.admin_inner li label
+{	
+width:60px;
+displat:inline-block
+}
+small
+{
+	font-size:12px;
+}
