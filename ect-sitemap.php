@@ -4,7 +4,7 @@ Plugin Name:ECT SITEMAP
 Description:This plugin will generate a SITEMAP PAGE as well as xml sitemap file. Use [ECT_HTML_SITEMAP] to display html sitemap
 Author:Andy Chapman
 Author URI:http://www.ecommercetemplates.com
-Version:1.1
+Version:1.2
 */
 define('PLUGIN_NAME','ect_sitemap_');
 
@@ -353,7 +353,7 @@ function GetCats($Xml='')
 			{
 				$CatName=$Pp->sectionID;
 				if($GLOBALS['usecategoryname'])
-					$CatName=str_replace(' ','-',$Pp->sectionName);
+					$CatName=$Pp->sectionName;
 				
 				$k='products.php';
 					if($Pp->rootSection==0)
@@ -362,7 +362,7 @@ function GetCats($Xml='')
 				{
 					
 						
-					$Tmp.='<li><a title="'.$Pp->sectionName.'" href="'.UM('category/',str_replace(' ','-',$Pp->sectionName),$k.'?cat='.$CatName).'">'.$Pp->sectionName.'</a>';
+					$Tmp.='<li><a title="'.$Pp->sectionName.'" href="'.UM('category/',str_replace(' ','-',$Pp->sectionName),$k.'?cat='.urlencode($CatName)).'">'.$Pp->sectionName.'</a>';
 					$PC=ProdByCat($Pp->sectionID);
 					if(!empty($PC))
 					{
@@ -373,7 +373,7 @@ function GetCats($Xml='')
 				}
 				else
 				{
-					$Tmp.='<url><loc>'.UM('category/',str_replace(' ','-',$Pp->sectionName),$k.'?cat='.$CatName).'</loc></url>';
+					$Tmp.='<url><loc>'.UM('category/',str_replace(' ','-',$Pp->sectionName),$k.'?cat='.urlencode ($CatName)).'</loc></url>';
 					$PC=ProdByCat($Pp->sectionID,1);
 					if(!empty($PC))
 						$Tmp.=ProdByCat($Pp->sectionID,1);	
@@ -406,11 +406,11 @@ $CatsArr1=$ECTWPDB->get_results("SELECT sectionID,sectionName AS sectionName,sec
 			{
 				$CatName=$Pp1->sectionID;
 				if($GLOBALS['usecategoryname'])
-					$CatName=str_replace(' ','-',$Pp1->sectionName);
+					$CatName=$Pp1->sectionName;
 					
 				if(!$Xml)
 				{
-					$Tmp.='<li><a title="'.$Pp1->sectionName.'" href="'.UM('product/',str_replace(' ','-',$Pp1->sectionName),'products.php?cat='.$CatName).'">'.$Pp1->sectionName.'</a>';
+					$Tmp.='<li><a title="'.$Pp1->sectionName.'" href="'.UM('product/',str_replace(' ','-',$Pp1->sectionName),'products.php?cat='.urlencode($CatName)).'">'.$Pp1->sectionName.'</a>';
 					$PC=ListStoreProd($Pp1->sectionID);
 					if(!empty($PC))
 					{
@@ -420,7 +420,7 @@ $CatsArr1=$ECTWPDB->get_results("SELECT sectionID,sectionName AS sectionName,sec
 					}
 				}
 				else
-					$Tmp.='<url><loc>'.UM('product/',str_replace(' ','-',$Pp1->sectionName),'products.php?cat='.$CatName).'</loc></url>';
+					$Tmp.='<url><loc>'.UM('product/',str_replace(' ','-',$Pp1->sectionName),'products.php?cat='.urlencode($CatName)).'</loc></url>';
 			}
 		}
 		return $Tmp;
